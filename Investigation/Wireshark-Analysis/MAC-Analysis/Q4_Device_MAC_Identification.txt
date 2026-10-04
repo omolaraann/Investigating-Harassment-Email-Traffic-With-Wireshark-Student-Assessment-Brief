@@ -1,0 +1,177 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 4 - DEVICE / MAC ADDRESS IDENTIFICATION
+============================================================
+
+Question:
+Which device made the relevant request? Identify its MAC address
+and explain why the shared IP address alone cannot prove the identity
+of the sender.
+
+------------------------------------------------------------
+WIRESHARK FILTER
+------------------------------------------------------------
+
+eth.src == 00:17:f2:e2:c0:ce && ip.dst == 69.25.94.22
+
+------------------------------------------------------------
+RELEVANT PACKET
+------------------------------------------------------------
+
+Frame:
+83601
+
+Protocol:
+HTTP
+
+Request:
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Destination IP:
+69.25.94.22
+
+Destination MAC:
+00:1d:d9:2e:4f:60
+
+Source Port:
+36044
+
+Destination Port:
+80
+
+------------------------------------------------------------
+FINDING
+------------------------------------------------------------
+
+Frame 83601 shows that the HTTP POST containing the harassment
+message originated from client IP address 192.168.15.4 and carried
+Ethernet source MAC address:
+
+00:17:f2:e2:c0:ce
+
+The source MAC address is the network interface identifier observed
+in the captured Ethernet frame.
+
+The same source MAC address is associated with the relevant client IP
+address and the HTTP POST sent to the willselfdestruct.com service.
+
+------------------------------------------------------------
+DEVICE-LEVEL CORRELATION
+------------------------------------------------------------
+
+The relevant identifiers are:
+
+Client IP:
+192.168.15.4
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Destination IP:
+69.25.94.22
+
+Service:
+www.willselfdestruct.com
+
+Endpoint:
+/secure/submit
+
+Relevant Frame:
+83601
+
+These identifiers correlate the harassment submission with the
+observed network interface/device in the captured traffic.
+
+------------------------------------------------------------
+WHY THE IP ADDRESS ALONE IS NOT SUFFICIENT
+------------------------------------------------------------
+
+The case scenario states that the dormitory wireless router was
+installed as an open, passwordless wireless network.
+
+As a result, multiple people could access the same wireless network.
+
+A shared network connection can cause traffic from different users
+to appear through the same network-level IP address.
+
+Therefore, the fact that the harassment request originated from
+192.168.15.4 does not independently establish which individual
+generated the traffic.
+
+The IP address establishes the network source observed in the PCAP,
+not the identity of the human operator.
+
+------------------------------------------------------------
+ROLE OF THE MAC ADDRESS
+------------------------------------------------------------
+
+The source MAC address provides a more specific network-level
+identifier for the interface observed in the captured Ethernet frame.
+
+However, the MAC address should not be treated as proof of human
+identity.
+
+A MAC address identifies the network interface/device observed in the
+capture. It does not establish who was physically operating that
+device at the time of the event.
+
+Consequently, the MAC address strengthens device-level attribution
+but must be correlated with additional evidence for individual
+attribution.
+
+------------------------------------------------------------
+RELATIONSHIP TO SUBSEQUENT EVIDENCE
+------------------------------------------------------------
+
+The identified MAC address:
+
+00:17:f2:e2:c0:ce
+
+was subsequently used to locate browser/session traffic containing
+the Gmail cookie:
+
+gmailchat=jcoachj@gmail.com/475090
+
+This additional evidence is examined in Question 5.
+
+------------------------------------------------------------
+EVIDENCE REFERENCE
+------------------------------------------------------------
+
+Primary evidence:
+Frame 83601
+
+Related evidence:
+Frame 79187
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 4
+------------------------------------------------------------
+
+The relevant request was made by the network interface/device observed
+with source MAC address 00:17:f2:e2:c0:ce and client IP address
+192.168.15.4.
+
+The shared IP address alone cannot prove the identity of the sender
+because the case scenario describes an open wireless network that
+could be accessed by multiple users.
+
+The MAC address establishes a device-level association, but additional
+browser/session and contextual evidence is required before making an
+individual attribution.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

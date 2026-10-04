@@ -1,0 +1,99 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 2 - CLIENT SYSTEM IDENTIFICATION
+============================================================
+
+Question:
+Which client system contacted the web service?
+
+------------------------------------------------------------
+WIRESHARK FILTER
+------------------------------------------------------------
+
+http.request.method == "GET" && http.host == "www.willselfdestruct.com"
+
+------------------------------------------------------------
+RELEVANT PACKET
+------------------------------------------------------------
+
+Frame:
+82936
+
+Protocol:
+HTTP
+
+Request:
+GET /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Host:
+www.willselfdestruct.com
+
+------------------------------------------------------------
+FINDING
+------------------------------------------------------------
+
+Frame 82936 shows that the client system using IP address
+192.168.15.4 contacted the web service hosted at 69.25.94.22 and
+requested the /secure/submit endpoint.
+
+The packet demonstrates that the client interacted with the web service
+used for the subsequent harassment submission.
+
+------------------------------------------------------------
+INTERPRETATION
+------------------------------------------------------------
+
+The client system identified in the captured traffic is:
+
+IP Address:
+192.168.15.4
+
+The destination web service is:
+
+Hostname:
+www.willselfdestruct.com
+
+IP Address:
+69.25.94.22
+
+Frame 82936 is significant because it establishes the relationship
+between the client and the secure submission endpoint.
+
+However, this packet is a GET request and does not contain the
+harassment message itself. The actual submission is established by
+Frame 83601, which contains the corresponding HTTP POST request.
+
+------------------------------------------------------------
+EVIDENCE REFERENCE
+------------------------------------------------------------
+
+Evidence:
+Frame 82936
+
+Related evidence:
+Frame 83601
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 2
+------------------------------------------------------------
+
+The client system that contacted the willselfdestruct.com web service
+was using IP address 192.168.15.4. The client accessed the
+/secure/submit endpoint at 69.25.94.22, establishing network
+interaction with the service involved in the harassment submission.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

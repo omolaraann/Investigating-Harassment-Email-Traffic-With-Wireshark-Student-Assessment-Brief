@@ -1,0 +1,177 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 3 - CORRELATION OF CLIENT WITH HARASSMENT MESSAGE
+============================================================
+
+Question:
+What evidence links the client system to the harassment message?
+
+------------------------------------------------------------
+WIRESHARK FILTER
+------------------------------------------------------------
+
+http.request.method == "POST" && http.host == "www.willselfdestruct.com"
+
+------------------------------------------------------------
+RELEVANT PACKET
+------------------------------------------------------------
+
+Frame:
+83601
+
+Protocol:
+HTTP
+
+Request:
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Source Port:
+36044
+
+Destination Port:
+80
+
+Host:
+www.willselfdestruct.com
+
+Content Type:
+application/x-www-form-urlencoded
+
+Form Data Length:
+188 bytes
+
+------------------------------------------------------------
+HARASSMENT MESSAGE CONTENT
+------------------------------------------------------------
+
+Recipient:
+lilytuckrige@yahoo.com
+
+Subject:
+you can't find us
+
+Message:
+and you can't hide from us.
+
+Stop teaching.
+
+Start running
+
+------------------------------------------------------------
+FINDING
+------------------------------------------------------------
+
+Frame 83601 contains an HTTP POST request from client IP
+192.168.15.4 to the willselfdestruct.com web service at 69.25.94.22.
+
+The POST request contains the recipient address associated with
+the victim, the harassment subject, and the message body.
+
+This directly links the identified client IP address to the network
+transmission of the harassment message.
+
+------------------------------------------------------------
+NETWORK-LEVEL CORRELATION
+------------------------------------------------------------
+
+Client:
+192.168.15.4
+
+Server:
+69.25.94.22
+
+Service:
+www.willselfdestruct.com
+
+Endpoint:
+/secure/submit
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+The same packet therefore provides multiple network identifiers
+associated with the observed submission:
+
+- Client IP address
+- Source MAC address
+- Source TCP port
+- Destination IP address
+- Destination TCP port
+- HTTP request
+- Application-layer form data
+
+------------------------------------------------------------
+RELATIONSHIP TO QUESTION 2
+------------------------------------------------------------
+
+Frame 82936 identified client IP 192.168.15.4 as a client that
+accessed the /secure/submit endpoint.
+
+Frame 83601 subsequently shows the same client IP address submitting
+the actual harassment message using HTTP POST.
+
+This provides the network-level correlation between the client
+identified in Question 2 and the harassment message identified in
+Question 3.
+
+------------------------------------------------------------
+IMPORTANT FORENSIC LIMITATION
+------------------------------------------------------------
+
+The evidence establishes that the captured network traffic from
+192.168.15.4 transmitted the harassment message.
+
+It does not, by itself, establish which individual was operating the
+device.
+
+The case scenario states that the network was open and could be
+accessed by multiple people. Therefore, attribution to a specific
+person requires additional evidence beyond the shared client IP
+address.
+
+The source MAC address, browser/session evidence, account association,
+and class roster are examined in subsequent questions.
+
+------------------------------------------------------------
+EVIDENCE REFERENCES
+------------------------------------------------------------
+
+Primary evidence:
+Frame 83601
+
+Related evidence:
+Frame 82936
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Client IP:
+192.168.15.4
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 3
+------------------------------------------------------------
+
+Frame 83601 provides direct network-level evidence linking client
+IP address 192.168.15.4 to the transmission of the harassment message
+through the willselfdestruct.com /secure/submit endpoint.
+
+The evidence establishes the network source of the observed
+submission but does not independently identify the physical person
+who operated the device.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

@@ -1,0 +1,107 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+EVIDENCE ACQUISITION AND INTEGRITY RECORD
+============================================================
+
+Case Reference:
+NITROBA - Harassment Email Traffic Investigation
+
+Evidence ID:
+E01
+
+Original Evidence:
+nitroba.pcap
+
+Source:
+Digital Corpora - 2008 Nitroba Scenario
+
+Acquisition Method:
+The network traffic capture was acquired from the publicly available
+Digital Corpora scenario repository using HTTPS and preserved as the
+original PCAP evidence file.
+
+Original File:
+working/nitroba.pcap
+
+Preserved Evidence Copy:
+Investigation/Evidence/E01_nitroba.pcap
+
+File Size:
+56,180,821 bytes
+
+File Type:
+PCAP network packet capture
+
+Acquisition Status:
+Successfully acquired and preserved.
+
+INTEGRITY VERIFICATION
+------------------------------------------------------------
+
+MD5:
+9981827f11968773ff815e39f5458ec8
+
+SHA-1:
+65656392412add15f93f8585197a8998aaeb50a1
+
+SHA-256:
+2b77a9eaefc1d6af163d1ba793c96dbccacb04e6befdf1a0b01f8c67553ec2fb
+
+Published SHA-256:
+2b77a9eaefc1d6af163d1ba793c96dbccacb04e6befdf1a0b01f8c67553ec2fb
+
+Integrity Result:
+PASS
+
+The locally calculated SHA-256 hash matches the published SHA-256
+hash for the original nitroba.pcap evidence. The MD5 and SHA-1
+values also match the published reference values. This provides
+evidence that the acquired PCAP has not been altered relative to
+the published source.
+
+DERIVED EVIDENCE
+------------------------------------------------------------
+
+Evidence ID:
+E03
+
+Derived File:
+E03_HTTP_POST_secure_submit.pcap
+
+Purpose:
+A filtered/derived PCAP containing the relevant HTTP POST traffic
+associated with the willselfdestruct.com secure submission endpoint.
+
+Preserved Location:
+Investigation/Evidence/E03_HTTP_POST_secure_submit.pcap
+
+SHA-256:
+9cf13ace8bd8a88be5acbff63201a4402de4907a5adfb1e0708b1dbcfde4799e
+
+The derived evidence is retained separately from the original PCAP.
+The original evidence remains unchanged and is treated as the primary
+source for forensic analysis.
+
+CHAIN OF CUSTODY / HANDLING NOTE
+------------------------------------------------------------
+
+The original nitroba.pcap file was retained in the working directory
+and copied to the Investigation/Evidence directory for repository
+organization. Hash verification was performed on the preserved copy.
+
+The derived HTTP POST capture was created from the original PCAP for
+focused analysis. Its SHA-256 hash was calculated independently.
+
+No modification was made to the packet contents of the original
+nitroba.pcap evidence.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1
+
+Record Purpose:
+To document evidence acquisition, preservation, integrity verification,
+and handling of original and derived network traffic evidence.

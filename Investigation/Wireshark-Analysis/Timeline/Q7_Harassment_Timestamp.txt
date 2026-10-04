@@ -1,0 +1,152 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 7 - ACTIVITY TIMELINE
+============================================================
+
+Question:
+When did the relevant activity occur?
+
+------------------------------------------------------------
+PRIMARY EVENT
+------------------------------------------------------------
+
+The primary event for determining the time of the harassment
+activity is Frame 83601, which contains the HTTP POST request to
+the willselfdestruct.com service.
+
+Frame:
+83601
+
+Request:
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+------------------------------------------------------------
+WIRESHARK TIMESTAMP
+------------------------------------------------------------
+
+Arrival Time:
+Jul 22, 2008 02:04:24.311700 EDT
+
+UTC Arrival Time:
+Jul 22, 2008 06:04:24.311700 UTC
+
+Epoch Arrival Time:
+1216706664.311700000
+
+Time Since First Frame:
+4:13:17.216422
+
+------------------------------------------------------------
+RELATED ACCOUNT-ASSOCIATION EVENT
+------------------------------------------------------------
+
+Frame 79187 contains the browser/session cookie associated with
+the Gmail account identified during the investigation.
+
+Frame:
+79187
+
+Arrival Time:
+Jul 22, 2008 02:01:06.373943 EDT
+
+UTC Arrival Time:
+Jul 22, 2008 06:01:06.373943 UTC
+
+Epoch Arrival Time:
+1216706466.373943000
+
+Relevant Cookie:
+gmailchat=jcoachj@gmail.com/475090
+
+------------------------------------------------------------
+EVENT SEQUENCE
+------------------------------------------------------------
+
+02:01:06.373943 EDT
+Frame 79187
+Browser/session traffic contains:
+gmailchat=jcoachj@gmail.com/475090
+
+        |
+        | approximately 3 minutes 17.937757 seconds
+        v
+
+02:04:24.311700 EDT
+Frame 83601
+HTTP POST /secure/submit
+Harassment message submitted to:
+lilytuckrige@yahoo.com
+
+------------------------------------------------------------
+TIMESTAMP INTERPRETATION
+------------------------------------------------------------
+
+The PCAP timestamps indicate that the relevant harassment
+submission occurred on July 22, 2008 at approximately:
+
+02:04:24.311700 EDT
+
+The equivalent UTC time is:
+
+06:04:24.311700 UTC
+
+The timestamps above are taken directly from the captured packet
+metadata in Wireshark.
+
+Forensic reporting should retain the original Wireshark timestamp
+and explicitly state the timezone used.
+
+The scenario materials may describe the harassment activity in
+relation to Monday, July 21. However, the forensic timestamp of the
+captured HTTP POST in the supplied PCAP is July 22, 2008 at
+02:04:24.311700 EDT. The captured timestamp is therefore used as
+the primary technical time reference.
+
+------------------------------------------------------------
+EVIDENCE REFERENCE
+------------------------------------------------------------
+
+Primary evidence:
+Frame 83601 - harassment HTTP POST
+
+Related evidence:
+Frame 79187 - browser/session cookie
+
+Wireshark filter used to locate the primary event:
+
+frame.number == 83601
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 7
+------------------------------------------------------------
+
+The harassment message was transmitted in Frame 83601 at:
+
+July 22, 2008 02:04:24.311700 EDT
+
+or:
+
+July 22, 2008 06:04:24.311700 UTC.
+
+The browser/session account evidence in Frame 79187 occurred
+approximately 3 minutes and 17.937757 seconds before the harassment
+submission.
+
+These timestamps establish the sequence and timing of the observed
+network activity within the PCAP.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

@@ -1,0 +1,363 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+FORENSIC EVIDENCE LOG
+============================================================
+
+Case Reference:
+SBT-DF204 Case Study 1 - Investigating Harassment Email Traffic
+With Wireshark
+
+Analyst:
+Kafayat Animashawun
+
+------------------------------------------------------------
+EVIDENCE OVERVIEW
+------------------------------------------------------------
+
+Evidence ID: E01
+Item: Original Nitroba network capture
+File: E01_nitroba.pcap
+Type: PCAP network capture
+Size: 56,180,821 bytes
+Purpose: Primary source evidence for the investigation
+Integrity: VERIFIED
+SHA-256:
+2b77a9eaefc1d6af163d1ba793c96dbccacb04e6befdf1a0b01f8c67553ec2fb
+
+------------------------------------------------------------
+
+Evidence ID: E02
+Item: PCAP metadata
+File: E02_PCAP_Metadata.txt
+Purpose: Documents PCAP format, packet count, timestamps,
+capture duration, and file characteristics
+Source: E01_nitroba.pcap
+
+------------------------------------------------------------
+
+Evidence ID: E03
+Item: Derived HTTP POST capture
+File: E03_HTTP_POST_secure_submit.pcap
+Type: Derived PCAP
+Purpose: Isolated relevant HTTP POST traffic for analysis
+Source: E01_nitroba.pcap
+SHA-256:
+9cf13ace8bd8a88be5acbff63201a4402de4907a5adfb1e0708b1dbcfde4799e
+
+------------------------------------------------------------
+PACKET-LEVEL FINDINGS
+------------------------------------------------------------
+
+Evidence ID: P01
+Question: Q2 - Client System Identification
+Packet: Frame 82936
+Finding:
+HTTP GET request to www.willselfdestruct.com/secure/submit
+originated from client IP 192.168.15.4.
+
+Source:
+192.168.15.4
+
+Destination:
+69.25.94.22
+
+Filter:
+http.request.method == "GET" &&
+http.host == "www.willselfdestruct.com"
+
+Analysis File:
+Investigation/Wireshark-Analysis/HTTP-GET/
+Q2_Client_System_Identification.txt
+
+Significance:
+Establishes that the client system at 192.168.15.4 contacted the
+relevant web service.
+
+------------------------------------------------------------
+
+Evidence ID: P02
+Question: Q3 - Harassment Message Correlation
+Packet: Frame 83601
+Finding:
+HTTP POST /secure/submit containing the harassment message was
+transmitted from 192.168.15.4 to 69.25.94.22.
+
+Recipient:
+lilytuckrige@yahoo.com
+
+Subject:
+you can't find us
+
+Message:
+and you can't hide from us.
+
+Stop teaching.
+
+Start running
+
+Source:
+192.168.15.4
+
+Destination:
+69.25.94.22
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Filter:
+http.request.method == "POST" &&
+http.host == "www.willselfdestruct.com"
+
+Analysis File:
+Investigation/Wireshark-Analysis/HTTP-POST/
+Q3_Harassment_Message_Correlation.txt
+
+Significance:
+Directly links the observed client system to transmission of the
+harassment message.
+
+------------------------------------------------------------
+
+Evidence ID: P03
+Question: Q4 - Device / MAC Identification
+Packet: Frame 83601
+Finding:
+The harassment POST was transmitted with Ethernet source MAC
+00:17:f2:e2:c0:ce.
+
+Source IP:
+192.168.15.4
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Destination IP:
+69.25.94.22
+
+Filter:
+eth.src == 00:17:f2:e2:c0:ce && ip.dst == 69.25.94.22
+
+Analysis File:
+Investigation/Wireshark-Analysis/MAC-Analysis/
+Q4_Device_MAC_Identification.txt
+
+Significance:
+Provides device/network-interface level correlation with the
+harassment transmission.
+
+Limitation:
+The MAC address identifies the observed network interface/device,
+not the human operator.
+
+------------------------------------------------------------
+
+Evidence ID: P04
+Question: Q5 - Device / Account Association
+Packet: Frame 79187
+Finding:
+HTTP cookie traffic from the same source MAC and IP contains:
+
+gmailchat=jcoachj@gmail.com/475090
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+74.125.19.17
+
+Source Port:
+35834
+
+Destination Port:
+80
+
+Filter:
+eth.src == 00:17:f2:e2:c0:ce && http.cookie contains "@"
+
+Analysis File:
+Investigation/Wireshark-Analysis/Cookie-Analysis/
+Q5_Device_Account_Association.txt
+
+Significance:
+Provides browser/session-level association between the observed
+device/interface and the Gmail account jcoachj@gmail.com.
+
+Limitation:
+The cookie does not independently prove who physically operated
+the device at the time of the harassment submission.
+
+------------------------------------------------------------
+
+Evidence ID: P05
+Question: Q6 - Chemistry 109 Roster Verification
+Source:
+Nitroba State University Harassment Investigation Slides
+
+File:
+slides.pdf
+
+Relevant slide:
+Slide 13 - "So who did it?"
+
+Relevant PDF page:
+14
+
+Finding:
+Johnny Coach is listed as a student in Chemistry 109, taught by
+Lily Tuckrige.
+
+Source URL:
+https://digitalcorpora.s3.amazonaws.com/corpora/scenarios/2008-nitroba/slides.pdf
+
+Analysis File:
+Investigation/Wireshark-Analysis/Cookie-Analysis/
+Q6_Chem109_Roster_Verification.txt
+
+Significance:
+Provides the case-provided class-membership association required
+to assess whether the identified individual was a Chemistry 109
+student.
+
+------------------------------------------------------------
+
+Evidence ID: P06
+Question: Q7 - Activity Timeline
+Packet: Frame 83601
+
+Arrival Time:
+Jul 22, 2008 02:04:24.311700 EDT
+
+UTC Arrival Time:
+Jul 22, 2008 06:04:24.311700 UTC
+
+Epoch:
+1216706664.311700000
+
+Time Since First Frame:
+4:13:17.216422
+
+Related Packet:
+Frame 79187
+
+Frame 79187 Arrival Time:
+Jul 22, 2008 02:01:06.373943 EDT
+
+Time Difference:
+Approximately 3 minutes 17.937757 seconds
+
+Analysis File:
+Investigation/Wireshark-Analysis/Timeline/
+Q7_Harassment_Timestamp.txt
+
+Significance:
+Establishes the forensic sequence and timing of the browser/session
+evidence and subsequent harassment submission.
+
+------------------------------------------------------------
+FINAL ATTRIBUTION
+------------------------------------------------------------
+
+Evidence ID: P07
+Question: Q8 - Final Attribution Assessment
+
+Primary Evidence:
+Frame 83601
+
+Supporting Evidence:
+Frame 79187
+Chemistry 109 roster in case-provided slides
+
+Finding:
+The combined case evidence supports an association between the
+observed device/browser session, the account identifier
+jcoachj@gmail.com, and Johnny Coach, who is listed as a Chemistry
+109 student in the case-provided class roster. This association is
+strong but does not independently establish that Johnny Coach was
+the physical operator at the time of transmission.
+
+Confidence:
+Device-to-harassment association: HIGH
+
+Device-to-browser/account association: HIGH
+
+Account-to-Chemistry-109-student association: MODERATE
+
+Physical attribution to Johnny Coach: MODERATE
+
+Overall:
+STRONG ASSOCIATION, NOT CONCLUSIVE PHYSICAL ATTRIBUTION
+
+Analysis File:
+Investigation/Notes/Q8_Attribution_Assessment.txt
+
+------------------------------------------------------------
+KEY FORENSIC LIMITATIONS
+------------------------------------------------------------
+
+1. The case scenario describes an open, passwordless wireless
+   network that could be accessed by multiple people.
+
+2. The shared IP address 192.168.15.4 therefore cannot independently
+   identify the human sender.
+
+3. The MAC address identifies the observed network interface/device
+   but does not establish the physical operator.
+
+4. The browser cookie provides session/account evidence but does not
+   independently prove who was physically operating the device.
+
+5. The available PCAP does not independently provide endpoint login,
+   device ownership, wireless association, or other direct evidence
+   identifying the physical operator.
+
+------------------------------------------------------------
+SCREENSHOT REFERENCES
+------------------------------------------------------------
+
+Screenshots are to be inserted manually by the analyst into:
+
+Investigation/Screenshots/
+
+Recommended evidence screenshots:
+
+S01 - PCAP file/hash verification
+S02 - Frame 82936 HTTP GET /secure/submit
+S03 - Frame 83601 HTTP POST containing harassment message
+S04 - Frame 83601 Ethernet source MAC
+S05 - Frame 79187 Gmail cookie
+S06 - Chemistry 109 roster / case-provided slide
+S07 - Frame 83601 timestamp
+S08 - Final evidence chain / relevant Wireshark view
+
+------------------------------------------------------------
+EVIDENCE HANDLING NOTE
+------------------------------------------------------------
+
+E01_nitroba.pcap is the preserved primary evidence file.
+
+The original SHA-256 hash matches the published SHA-256 value for
+the Nitroba PCAP:
+
+2b77a9eaefc1d6af163d1ba793c96dbccacb04e6befdf1a0b01f8c67553ec2fb
+
+The original evidence file was retained and analysis was performed
+using the preserved copy.
+
+Derived evidence E03 was created from the original capture to
+isolate relevant HTTP POST traffic.
+
+The original E01 evidence remains unchanged.
+
+------------------------------------------------------------
+END OF EVIDENCE LOG
+------------------------------------------------------------
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

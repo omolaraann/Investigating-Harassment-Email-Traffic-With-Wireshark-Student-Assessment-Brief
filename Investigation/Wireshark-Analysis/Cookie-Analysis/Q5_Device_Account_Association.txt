@@ -1,0 +1,167 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 5 - ASSOCIATION OF DEVICE WITH AN INDIVIDUAL
+============================================================
+
+Question:
+Who is associated with the device identified in Question 4?
+
+------------------------------------------------------------
+WIRESHARK FILTER
+------------------------------------------------------------
+
+eth.src == 00:17:f2:e2:c0:ce && http.cookie contains "@"
+
+------------------------------------------------------------
+RELEVANT PACKET
+------------------------------------------------------------
+
+Frame:
+79187
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+74.125.19.17
+
+Source Port:
+35834
+
+Destination Port:
+80
+
+Relevant Cookie:
+gmailchat=jcoachj@gmail.com/475090
+
+------------------------------------------------------------
+FINDING
+------------------------------------------------------------
+
+Frame 79187 contains HTTP cookie traffic originating from the
+same network interface/device identified in Question 4.
+
+The Ethernet source MAC address is:
+
+00:17:f2:e2:c0:ce
+
+The corresponding client IP address is:
+
+192.168.15.4
+
+The HTTP cookie contains the following account identifier:
+
+gmailchat=jcoachj@gmail.com/475090
+
+This provides a browser/session-level association between the
+observed network interface and the Gmail account:
+
+jcoachj@gmail.com
+
+------------------------------------------------------------
+CORRELATION WITH QUESTION 4
+------------------------------------------------------------
+
+Question 4 identified the source MAC address:
+
+00:17:f2:e2:c0:ce
+
+as the network interface/device associated with the harassment
+submission in Frame 83601.
+
+Frame 79187 shows the same source MAC address and client IP
+address in browser/session traffic containing the Gmail account
+identifier:
+
+jcoachj@gmail.com
+
+This creates a network-level and browser/session-level correlation
+between the device observed in the harassment traffic and the
+identified Gmail account.
+
+------------------------------------------------------------
+ACCOUNT-TO-INDIVIDUAL ASSOCIATION
+------------------------------------------------------------
+
+The Gmail account:
+
+jcoachj@gmail.com
+
+is associated with the individual Johnny Coach based on the
+Chemistry 109 class information supplied as part of the case study.
+
+The account-to-individual association is therefore:
+
+Device/network interface:
+00:17:f2:e2:c0:ce
+
+Client IP:
+192.168.15.4
+
+Browser/session account:
+jcoachj@gmail.com
+
+Associated individual:
+Johnny Coach
+
+The roster verification is documented separately in Question 6.
+
+------------------------------------------------------------
+FORENSIC LIMITATION
+------------------------------------------------------------
+
+The presence of the Gmail account identifier in the browser cookie
+does not independently prove that Johnny Coach was physically
+operating the device at the exact time of the harassment submission.
+
+A browser cookie may represent an authenticated or previously
+authenticated browser session, and another person could potentially
+have used the same device or session.
+
+Therefore, the evidence establishes an association between the
+observed device/browser session and the Gmail account, but it should
+not be interpreted by itself as conclusive proof of the physical
+operator.
+
+This evidence must be considered together with the network,
+device, roster, and other contextual evidence.
+
+------------------------------------------------------------
+EVIDENCE REFERENCE
+------------------------------------------------------------
+
+Primary evidence:
+Frame 79187
+
+Related evidence:
+Frame 83601 - harassment POST
+Question 4 - device/MAC identification
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 5
+------------------------------------------------------------
+
+Frame 79187 associates the observed network interface
+00:17:f2:e2:c0:ce and client IP 192.168.15.4 with a browser/session
+containing the Gmail account identifier jcoachj@gmail.com.
+
+The account is associated with Johnny Coach based on the supplied
+Chemistry 109 roster.
+
+This provides significant contextual evidence connecting the
+observed device to Johnny Coach, but it does not independently
+establish that Johnny Coach was the physical operator at the exact
+time of the harassment submission.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

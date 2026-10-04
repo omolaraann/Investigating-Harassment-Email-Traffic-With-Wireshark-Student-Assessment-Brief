@@ -1,0 +1,141 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 6 - CHEMISTRY 109 ROSTER VERIFICATION
+============================================================
+
+Question:
+Is the individual associated with the browser/session account listed
+on the Chemistry 109 class roster?
+
+------------------------------------------------------------
+CASE-PROVIDED SOURCE
+------------------------------------------------------------
+
+Source:
+Nitroba State University - Harassment Investigation Slides
+
+File:
+slides.pdf
+
+Source URL:
+https://digitalcorpora.s3.amazonaws.com/corpora/scenarios/2008-nitroba/slides.pdf
+
+Relevant slide:
+Slide 13 - "So who did it?"
+
+Relevant PDF page:
+Page 14
+
+------------------------------------------------------------
+ROSTER EVIDENCE
+------------------------------------------------------------
+
+The case-provided Chemistry 109 class list identifies:
+
+Teacher:
+Lily Tuckrige
+
+Students:
+Amy Smith
+Burt Greedom
+Tuck Gorge
+Ava Book
+Johnny Coach
+Jeremy Ledvkin
+Nancy Colburne
+Tamara Perkins
+Esther Pringle
+Asar Misrad
+Jenny Kant
+
+Johnny Coach is therefore listed as a student in Chemistry 109.
+
+------------------------------------------------------------
+CORRELATION WITH QUESTION 5
+------------------------------------------------------------
+
+Question 5 identified the browser/session account:
+
+jcoachj@gmail.com
+
+The account identifier was observed in Frame 79187 through the
+following HTTP cookie:
+
+gmailchat=jcoachj@gmail.com/475090
+
+The case-provided investigation material associates the account
+identifier "jcoachj" with the individual Johnny Coach.
+
+The Chemistry 109 class list then independently confirms that
+Johnny Coach is a student in the class taught by Lily Tuckrige.
+
+The resulting evidentiary association is:
+
+Observed device/network interface:
+00:17:f2:e2:c0:ce
+
+Client IP:
+192.168.15.4
+
+Browser/session account:
+jcoachj@gmail.com
+
+Associated individual:
+Johnny Coach
+
+Class:
+Chemistry 109
+
+Teacher:
+Lily Tuckrige
+
+------------------------------------------------------------
+FORENSIC LIMITATION
+------------------------------------------------------------
+
+The roster establishes that Johnny Coach is a member of Chemistry
+109. It does not, by itself, establish that Johnny Coach physically
+operated the device at the time of the harassment submission.
+
+The evidence should therefore be described as an attribution
+association rather than definitive proof of the physical operator.
+
+The device, browser/session, account, roster, and network evidence
+must be considered together.
+
+------------------------------------------------------------
+EVIDENCE REFERENCE
+------------------------------------------------------------
+
+Primary case-provided evidence:
+Nitroba State University Harassment Investigation Slides,
+Slide 13 / PDF page 14.
+
+Related network evidence:
+Frame 79187 - Gmail browser/session cookie
+Frame 83601 - harassment HTTP POST
+
+Screenshot:
+To be inserted manually into the Investigation/Screenshots directory.
+
+------------------------------------------------------------
+CONCLUSION FOR QUESTION 6
+------------------------------------------------------------
+
+Yes. Johnny Coach is listed on the Chemistry 109 class roster in
+the case-provided Nitroba investigation slides.
+
+This supports the association between the observed browser/session
+account jcoachj@gmail.com and a student in Lily Tuckrige's Chemistry
+109 class.
+
+However, roster membership alone does not prove that Johnny Coach
+was the physical operator of the device when the harassment message
+was transmitted.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

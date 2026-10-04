@@ -1,0 +1,440 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+MASTER INVESTIGATION NOTES
+============================================================
+
+Case Reference:
+SBT-DF204 Case Study 1 - Investigating Harassment Email Traffic
+With Wireshark
+
+Analyst:
+Kafayat Animashawun
+
+============================================================
+1. INVESTIGATION OBJECTIVE
+============================================================
+
+The objective of this investigation is to examine the supplied
+Nitroba network capture and determine whether the captured traffic
+provides evidence linking the harassment message to a client
+system, network device, browser/session account, and a possible
+Chemistry 109 student.
+
+The investigation distinguishes between network-level attribution,
+device-level attribution, browser/session or account-level
+association, and human attribution.
+
+The evidence must not be interpreted beyond what the PCAP and
+case-provided material can support.
+
+============================================================
+2. PRIMARY EVIDENCE
+============================================================
+
+Primary evidence:
+E01_nitroba.pcap
+
+File size:
+56,180,821 bytes
+
+Packet count:
+94,410 packets
+
+PCAP format:
+PCAP version 2.4
+
+Link-layer type:
+Ethernet
+
+Timestamp precision:
+Microsecond
+
+SHA-256:
+2b77a9eaefc1d6af163d1ba793c96dbccacb04e6befdf1a0b01f8c67553ec2fb
+
+The calculated SHA-256 hash matches the published SHA-256 hash
+for the original Nitroba PCAP.
+
+Integrity status:
+VERIFIED
+
+============================================================
+3. INVESTIGATION APPROACH
+============================================================
+
+The investigation followed a progressive correlation approach.
+
+1. Identify the relevant web service.
+2. Identify the client communicating with the service.
+3. Isolate the HTTP POST containing the harassment message.
+4. Identify the Ethernet source MAC associated with the POST.
+5. Examine traffic from the same MAC/IP combination for
+   browser/session information.
+6. Identify the relevant browser cookie and account identifier.
+7. Compare the account/session evidence with the case-provided
+   Chemistry 109 roster.
+8. Assess attribution strength and limitations.
+
+============================================================
+4. CLIENT SYSTEM IDENTIFICATION
+============================================================
+
+Frame:
+82936
+
+Request:
+GET /secure/submit
+
+Host:
+www.willselfdestruct.com
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Filter:
+http.request.method == "GET" &&
+http.host == "www.willselfdestruct.com"
+
+Finding:
+
+The client system using IP address 192.168.15.4 contacted the
+willselfdestruct.com web service.
+
+Important distinction:
+
+Frame 82936 is an HTTP GET request and does not contain the
+harassment message itself. It establishes communication with the
+relevant web service.
+
+============================================================
+5. HARASSMENT MESSAGE IDENTIFICATION
+============================================================
+
+Frame:
+83601
+
+Request:
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Source port:
+36044
+
+Destination port:
+80
+
+Recipient:
+lilytuckrige@yahoo.com
+
+Subject:
+you can't find us
+
+Message:
+and you can't hide from us.
+
+Stop teaching.
+
+Start running
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Filter:
+http.request.method == "POST" &&
+http.host == "www.willselfdestruct.com"
+
+Finding:
+
+Frame 83601 contains the actual HTTP POST carrying the harassment
+message to the target email address.
+
+This is the principal packet used for network-level correlation of
+the harassment message.
+
+============================================================
+6. DEVICE / MAC CORRELATION
+============================================================
+
+Frame:
+83601
+
+Ethernet source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+Finding:
+
+The harassment POST was transmitted through the network interface
+identified by MAC address 00:17:f2:e2:c0:ce.
+
+Limitation:
+
+A MAC address identifies a network interface/device observed in
+the capture. It does not independently identify the human who
+operated that device.
+
+============================================================
+7. BROWSER / ACCOUNT CORRELATION
+============================================================
+
+Frame:
+79187
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+74.125.19.17
+
+Source port:
+35834
+
+Destination port:
+80
+
+Relevant cookie:
+gmailchat=jcoachj@gmail.com/475090
+
+Filter:
+eth.src == 00:17:f2:e2:c0:ce && http.cookie contains "@"
+
+Finding:
+
+The same MAC/IP combination observed in the harassment POST also
+appears in earlier HTTP traffic containing the browser/session
+cookie associated with the account identifier:
+
+jcoachj@gmail.com
+
+This provides browser/session-level association between the
+observed device/interface and the account identifier.
+
+Limitation:
+
+A browser cookie is not equivalent to proof of physical identity.
+Another person could potentially have used the device or an active
+browser session.
+
+============================================================
+8. CHEMISTRY 109 ROSTER CORRELATION
+============================================================
+
+Case-provided source:
+Nitroba State University Harassment Investigation Slides
+
+Relevant slide:
+Slide 13 - "So who did it?"
+
+Relevant PDF page:
+14
+
+Finding:
+
+Johnny Coach is listed as a student in Chemistry 109, taught by
+Lily Tuckrige.
+
+The case evidence therefore provides a basis for comparing the
+observed account/session evidence with the class membership
+relevant to the harassment investigation.
+
+Important limitation:
+
+The roster establishes class membership. It does not independently
+prove that Johnny Coach owned the device, controlled the browser
+session, or physically transmitted the harassment message.
+
+============================================================
+9. TIMELINE
+============================================================
+
+Related account/session evidence:
+
+Frame 79187
+Jul 22, 2008 02:01:06.373943 EDT
+
+UTC:
+Jul 22, 2008 06:01:06.373943 UTC
+
+Harassment submission:
+
+Frame 83601
+Jul 22, 2008 02:04:24.311700 EDT
+
+UTC:
+Jul 22, 2008 06:04:24.311700 UTC
+
+Time difference:
+Approximately 3 minutes 17.937757 seconds
+
+Finding:
+
+The browser/session account evidence in Frame 79187 occurred
+approximately three minutes and eighteen seconds before the
+harassment POST in Frame 83601.
+
+The Wireshark-captured timestamp is used as the primary technical
+reference.
+
+============================================================
+10. ATTRIBUTION CHAIN
+============================================================
+
+Harassment message
+        |
+        v
+Frame 83601
+        |
+        v
+Client IP 192.168.15.4
+        |
+        v
+Ethernet MAC 00:17:f2:e2:c0:ce
+        |
+        v
+Same MAC/IP observed in Frame 79187
+        |
+        v
+Browser/session cookie:
+jcoachj@gmail.com
+        |
+        v
+Case-provided Chemistry 109 roster
+        |
+        v
+Johnny Coach listed as Chemistry 109 student
+        |
+        v
+Strong association
+        |
+        v
+NOT conclusive physical attribution
+
+============================================================
+11. SHARED NETWORK LIMITATION
+============================================================
+
+The case scenario states that the dorm room network included an
+open/passwordless wireless router.
+
+Consequently, multiple people could potentially use the same
+network connection.
+
+The shared IP address 192.168.15.4 therefore cannot by itself
+identify the human sender.
+
+The MAC address provides stronger device-level correlation but
+still does not establish who physically operated the device.
+
+============================================================
+12. ATTRIBUTION ASSESSMENT
+============================================================
+
+Device-to-harassment association:
+HIGH
+
+Device-to-browser/account association:
+HIGH
+
+Account-to-Chemistry-109-student association:
+MODERATE
+
+Physical attribution to Johnny Coach:
+MODERATE
+
+Overall assessment:
+
+STRONG ASSOCIATION, NOT CONCLUSIVE PHYSICAL ATTRIBUTION
+
+The evidence supports an association between the harassment
+transmission, the observed network interface/device, the browser
+session/account identifier jcoachj@gmail.com, and the case-provided
+Chemistry 109 student Johnny Coach.
+
+However, the PCAP alone does not establish that Johnny Coach was the
+person physically operating the device when the message was
+transmitted.
+
+============================================================
+13. ALTERNATIVE EXPLANATIONS / LIMITATIONS
+============================================================
+
+1. Another person may have accessed the open wireless network.
+
+2. Another person may have used the observed device.
+
+3. Another person may have used an already-authenticated browser
+   session.
+
+4. The account identifier may not independently establish the
+   physical identity of the person using the device.
+
+5. The PCAP does not provide direct endpoint authentication or
+   operating-system login evidence.
+
+============================================================
+14. ADDITIONAL EVIDENCE THAT COULD STRENGTHEN ATTRIBUTION
+============================================================
+
+Potential additional evidence includes:
+
+- Operating-system login records
+- Local user-account information
+- Browser history and local browser artifacts
+- Device ownership records
+- DHCP records
+- Wireless access-point association logs
+- Authentication records
+- File-system artifacts
+- Endpoint security telemetry
+- Additional network traffic
+- Witness or access-control evidence
+
+Such evidence could help distinguish device ownership, account
+ownership, and actual physical operation.
+
+============================================================
+15. FINAL INVESTIGATIVE POSITION
+============================================================
+
+The strongest technical finding is that the harassment message was
+transmitted from client IP 192.168.15.4 using Ethernet source MAC
+00:17:f2:e2:c0:ce.
+
+The same MAC/IP combination is associated with browser/session
+traffic containing the account identifier jcoachj@gmail.com.
+
+The case-provided Chemistry 109 roster lists Johnny Coach as a
+student in Lily Tuckrige's class.
+
+Taken together, these findings provide a strong evidentiary
+association with Johnny Coach, but they do not provide conclusive
+proof that Johnny Coach was the physical operator responsible for
+sending the harassment message.
+
+The appropriate forensic conclusion is therefore:
+
+STRONG ASSOCIATION, NOT CONCLUSIVE PHYSICAL ATTRIBUTION.
+
+============================================================
+END OF MASTER INVESTIGATION NOTES
+============================================================
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

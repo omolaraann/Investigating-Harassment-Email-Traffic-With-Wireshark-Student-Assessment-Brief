@@ -1,0 +1,99 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+PCAP METADATA VERIFICATION RECORD
+============================================================
+
+Evidence ID:
+E02
+
+Evidence File:
+E01_nitroba.pcap
+
+Source Evidence:
+nitroba.pcap
+
+CAPTURE INFORMATION
+------------------------------------------------------------
+
+File Type:
+PCAP network packet capture
+
+PCAP Version:
+2.4
+
+Link-Layer / Encapsulation:
+Ethernet
+
+Timestamp Precision:
+Microsecond
+
+Number of Packets:
+94,410
+
+File Size:
+56,180,821 bytes
+
+Approximate File Size:
+54 MB
+
+Captured Data:
+Approximately 54 MB
+
+Captured Interface:
+One captured network interface
+
+CAPTURE TIME RANGE
+------------------------------------------------------------
+
+First Packet:
+2008-07-21 21:51:07.095278
+
+Last Packet:
+2008-07-22 02:13:47.046029
+
+Approximate Capture Duration:
+4 hours, 22 minutes, 39.950751 seconds
+
+Packet Ordering:
+Packets are recorded in strict time order.
+
+INDEPENDENT FILE IDENTIFICATION
+------------------------------------------------------------
+
+The Linux 'file' utility independently identified the evidence as
+a PCAP network packet capture using PCAP version 2.4 with Ethernet
+encapsulation, microsecond timestamp precision, and a 4096-byte
+capture length.
+
+FORENSIC SIGNIFICANCE
+------------------------------------------------------------
+
+The metadata confirms that the evidence is a network traffic capture
+containing Ethernet-framed packets with timestamps precise to the
+microsecond level.
+
+The capture begins on July 21, 2008 and ends on July 22, 2008.
+The timestamp information provides the temporal basis for establishing
+when the relevant HTTP activity occurred within the captured network
+traffic.
+
+The PCAP metadata is used together with packet-level examination in
+Wireshark to identify the client system, web service interaction,
+source MAC address, browser/session evidence, and the timestamp of
+the relevant harassment submission.
+
+VERIFICATION STATUS
+------------------------------------------------------------
+
+Status:
+VERIFIED
+
+The metadata recorded above was verified during forensic examination
+of the original PCAP using Wireshark and command-line file analysis.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

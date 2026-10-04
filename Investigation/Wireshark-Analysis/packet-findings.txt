@@ -1,0 +1,326 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+PACKET-LEVEL FINDINGS
+============================================================
+
+Purpose:
+This record documents the principal packet-level findings obtained
+during examination of the Nitroba network traffic capture.
+
+The findings are based on packet inspection in Wireshark and are
+recorded separately from the display filters used to locate them.
+
+------------------------------------------------------------
+FINDING 1 - CLIENT SYSTEM AND WEB SERVICE
+------------------------------------------------------------
+
+Evidence:
+Frame 82936
+
+Protocol:
+HTTP
+
+Request:
+GET /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Host:
+www.willselfdestruct.com
+
+Finding:
+The client system using IP address 192.168.15.4 contacted the
+willselfdestruct.com web service and accessed the /secure/submit
+endpoint.
+
+Interpretation:
+This establishes that the client interacted with the web service
+used for the later harassment submission.
+
+Important distinction:
+Frame 82936 is a GET request. It is not the packet containing the
+harassment message itself.
+
+------------------------------------------------------------
+FINDING 2 - HARASSMENT MESSAGE SUBMISSION
+------------------------------------------------------------
+
+Evidence:
+Frame 83601
+
+Protocol:
+HTTP
+
+Request:
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Source Port:
+36044
+
+Destination Port:
+80
+
+Host:
+www.willselfdestruct.com
+
+Content Type:
+application/x-www-form-urlencoded
+
+Form Data Length:
+188 bytes
+
+Recipient:
+lilytuckrige@yahoo.com
+
+Subject:
+you can't find us
+
+Message:
+and you can't hide from us.
+
+Stop teaching.
+
+Start running
+
+Finding:
+Frame 83601 contains the actual HTTP POST request that submitted the
+harassment message to the willselfdestruct.com service.
+
+Interpretation:
+This is the principal packet establishing the network-level
+transmission of the harassment message.
+
+------------------------------------------------------------
+FINDING 3 - DEVICE / SOURCE MAC ADDRESS
+------------------------------------------------------------
+
+Evidence:
+Frame 83601
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+Finding:
+The HTTP POST containing the harassment message was transmitted by
+traffic bearing source MAC address 00:17:f2:e2:c0:ce.
+
+Interpretation:
+This establishes a network-level association between the relevant
+harassment submission and the observed Ethernet source MAC address.
+
+Limitation:
+A MAC address identifies the observed network interface/device in the
+capture. It does not, by itself, establish the identity of the person
+operating that device.
+
+------------------------------------------------------------
+FINDING 4 - SHARED IP / NETWORK ATTRIBUTION LIMITATION
+------------------------------------------------------------
+
+Evidence:
+Case scenario and Frame 83601
+
+Finding:
+The harassment submission originated from IP address 192.168.15.4.
+
+The scenario states that the dormitory wireless router was open and
+passwordless, allowing multiple people to access the same network.
+
+Interpretation:
+The shared IP address cannot independently identify the sender.
+Multiple users could potentially generate traffic through the same
+network connection and therefore appear under the same network-level
+address.
+
+Conclusion:
+IP address evidence must be correlated with additional evidence before
+making an attribution to an individual.
+
+------------------------------------------------------------
+FINDING 5 - BROWSER / GMAIL COOKIE ASSOCIATION
+------------------------------------------------------------
+
+Evidence:
+Frame 79187
+
+Client IP:
+192.168.15.4
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Relevant Cookie:
+gmailchat=jcoachj@gmail.com/475090
+
+Finding:
+HTTP cookie traffic originating from the same client IP and source MAC
+contains the Gmail account identifier jcoachj@gmail.com.
+
+Interpretation:
+The cookie provides browser/session-level evidence associating the
+observed device with the Gmail account jcoachj@gmail.com.
+
+Limitation:
+A browser cookie does not independently establish that the account
+owner was physically operating the device at the precise time of the
+harassment submission.
+
+------------------------------------------------------------
+FINDING 6 - ACCOUNT TO STUDENT ASSOCIATION
+------------------------------------------------------------
+
+Evidence:
+Frame 79187 and Chemistry 109 class roster
+
+Gmail Account:
+jcoachj@gmail.com
+
+Associated Student:
+Johnny Coach
+
+Course:
+Chemistry 109
+
+Instructor:
+Lily Tuckrige
+
+Finding:
+The Gmail account identifier found in the browser cookie corresponds
+to Johnny Coach, who appears on the Chemistry 109 class roster.
+
+Interpretation:
+The account/device association provides an additional link between the
+network activity and a student enrolled in the class taught by the
+recipient of the harassment message.
+
+Limitation:
+Roster membership establishes that Johnny Coach was enrolled in the
+relevant course. It does not independently establish that he physically
+operated the device when Frame 83601 was captured.
+
+------------------------------------------------------------
+FINDING 7 - TIMESTAMP OF HARASSMENT SUBMISSION
+------------------------------------------------------------
+
+Evidence:
+Frame 83601
+
+Wireshark Arrival Time:
+Jul 22, 2008 02:04:24.311700000 EDT
+
+UTC Arrival Time:
+Jul 22, 2008 06:04:24.311700000 UTC
+
+Epoch:
+1216706664.311700000
+
+Time Since First Frame:
+4:13:17.216422
+
+Finding:
+The network capture recorded the harassment POST at the timestamp
+shown above.
+
+Interpretation:
+The Wireshark packet timestamp provides the primary forensic time
+reference for the observed submission.
+
+Timezone Note:
+Both the Wireshark local display time and UTC equivalent are retained
+to avoid ambiguity when reporting the event.
+
+------------------------------------------------------------
+FINDING 8 - COMPLETE ATTRIBUTION CHAIN
+------------------------------------------------------------
+
+The packet-level evidence supports the following sequence:
+
+1. Client IP 192.168.15.4 accessed the willselfdestruct.com
+   submission service.
+
+2. Frame 82936 recorded a GET request to /secure/submit.
+
+3. Frame 83601 recorded the HTTP POST containing the harassment
+   recipient, subject, and message.
+
+4. Frame 83601 carried source MAC address 00:17:f2:e2:c0:ce.
+
+5. Frame 79187 showed the same device/MAC associated with the Gmail
+   cookie gmailchat=jcoachj@gmail.com/475090.
+
+6. The Gmail account identifier corresponds to Johnny Coach on the
+   Chemistry 109 class roster.
+
+7. The scenario states that the wireless network was open and
+   accessible to multiple users.
+
+Overall Interpretation:
+The evidence establishes a strong association between the harassment
+submission, the observed network device, the Gmail account, and a
+Chemistry 109 student.
+
+However, the evidence does not independently prove that Johnny Coach
+was the physical person operating the device at the exact moment of
+the harassment submission.
+
+------------------------------------------------------------
+PRIMARY EVIDENCE REFERENCES
+------------------------------------------------------------
+
+Frame 79187:
+Browser/session cookie association.
+
+Frame 82936:
+GET /secure/submit endpoint interaction.
+
+Frame 83601:
+Actual POST containing the harassment message, client IP, source MAC,
+and timestamp.
+
+------------------------------------------------------------
+ANALYST ASSESSMENT
+------------------------------------------------------------
+
+Confidence in device-to-account association:
+MODERATE TO HIGH
+
+Confidence in account-to-Chemistry-109-student association:
+HIGH, based on the supplied class roster.
+
+Confidence in definitive physical identification of the person who
+operated the device:
+LOWER / NOT CONCLUSIVE
+
+Overall attribution assessment:
+The evidence supports a strong evidentiary association with Johnny
+Coach, but a definitive conclusion that Johnny Coach personally sent
+the harassment message cannot be made from the PCAP alone.
+
+Additional evidence that could strengthen physical attribution would
+include endpoint artifacts, operating-system logon records, browser
+history, router/DHCP records, authentication records, or other
+independent evidence placing the individual at the device at the
+relevant time.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1

@@ -1,0 +1,302 @@
+SBT-DF204 COMPUTER FORENSICS CASE STUDIES
+CASE STUDY 1: INVESTIGATING HARASSMENT EMAIL TRAFFIC WITH WIRESHARK
+
+QUESTION 8 - FINAL ATTRIBUTION ASSESSMENT
+============================================================
+
+Question:
+What conclusion can be defended from the available evidence?
+
+------------------------------------------------------------
+EXECUTIVE ATTRIBUTION FINDING
+------------------------------------------------------------
+
+The available network evidence establishes a strong evidentiary
+association between the harassment submission, the observed network
+interface/device, the browser/session account jcoachj@gmail.com, and
+Johnny Coach, who is listed as a Chemistry 109 student in the
+case-provided investigation material.
+
+However, the available PCAP evidence does not conclusively establish
+that Johnny Coach was the physical person operating the device at
+the exact time the harassment message was transmitted.
+
+The appropriate forensic conclusion is therefore:
+
+STRONG EVIDENTIARY ASSOCIATION, BUT NOT CONCLUSIVE PHYSICAL
+ATTRIBUTION.
+
+------------------------------------------------------------
+EVIDENCE CHAIN
+------------------------------------------------------------
+
+1. CLIENT SYSTEM IDENTIFICATION
+
+Frame 82936 shows client IP address:
+
+192.168.15.4
+
+communicating with:
+
+www.willselfdestruct.com
+69.25.94.22
+
+The request was:
+
+GET /secure/submit
+
+This establishes interaction between the client system and the
+relevant web service.
+
+------------------------------------------------------------
+
+2. HARASSMENT MESSAGE TRANSMISSION
+
+Frame 83601 contains the actual HTTP POST request:
+
+POST /secure/submit HTTP/1.1
+
+Source IP:
+192.168.15.4
+
+Destination IP:
+69.25.94.22
+
+The POST contains:
+
+Recipient:
+lilytuckrige@yahoo.com
+
+Subject:
+you can't find us
+
+Message:
+and you can't hide from us.
+
+Stop teaching.
+
+Start running
+
+This directly links the client system to transmission of the
+harassment message.
+
+------------------------------------------------------------
+
+3. DEVICE / NETWORK INTERFACE IDENTIFICATION
+
+Frame 83601 contains the Ethernet source MAC address:
+
+00:17:f2:e2:c0:ce
+
+This is the network interface/device identifier observed in the
+captured Ethernet frame.
+
+The MAC address is associated with the same client IP:
+
+192.168.15.4
+
+This provides device-level correlation with the harassment
+submission.
+
+------------------------------------------------------------
+
+4. BROWSER / ACCOUNT ASSOCIATION
+
+Frame 79187 contains traffic from the same:
+
+Source MAC:
+00:17:f2:e2:c0:ce
+
+Source IP:
+192.168.15.4
+
+The HTTP cookie contains:
+
+gmailchat=jcoachj@gmail.com/475090
+
+This provides browser/session-level evidence associating the
+observed device/interface with the Gmail account:
+
+jcoachj@gmail.com
+
+------------------------------------------------------------
+
+5. INDIVIDUAL / CLASS ASSOCIATION
+
+The case-provided Nitroba investigation slides identify:
+
+jcoachj@gmail.com
+
+with the individual:
+
+Johnny Coach
+
+The Chemistry 109 class list in the case-provided investigation
+material also lists:
+
+Johnny Coach
+
+as a student in Lily Tuckrige's Chemistry 109 class.
+
+This creates the following evidentiary chain:
+
+Harassment POST
+        |
+        v
+192.168.15.4
+        |
+        v
+MAC 00:17:f2:e2:c0:ce
+        |
+        v
+Browser/session cookie
+gmailchat=jcoachj@gmail.com/475090
+        |
+        v
+Johnny Coach
+        |
+        v
+Chemistry 109 student
+
+------------------------------------------------------------
+6. TIMELINE
+------------------------------------------------------------
+
+Frame 79187:
+Jul 22, 2008 02:01:06.373943 EDT
+
+Browser/session cookie:
+gmailchat=jcoachj@gmail.com/475090
+
+Approximately 3 minutes and 17.937757 seconds later:
+
+Frame 83601:
+Jul 22, 2008 02:04:24.311700 EDT
+
+Harassment POST:
+POST /secure/submit
+
+This sequence provides temporal correlation between the browser/session
+account evidence and the subsequent harassment submission.
+
+------------------------------------------------------------
+WHY THE ATTRIBUTION IS NOT CONCLUSIVE
+------------------------------------------------------------
+
+Limitation 1 - Shared Open Wireless Network
+
+The case scenario states that the dormitory wireless router was
+open and passwordless.
+
+Multiple people could therefore access the network.
+
+The shared IP address 192.168.15.4 cannot independently identify a
+specific human sender.
+
+Limitation 2 - MAC Address Does Not Identify the Human Operator
+
+The MAC address identifies the network interface/device observed in
+the capture.
+
+It does not establish which person was physically operating the
+device at the time of the event.
+
+Limitation 3 - Browser Cookie Does Not Prove Physical Operation
+
+The Gmail cookie provides browser/session-level evidence associated
+with jcoachj@gmail.com.
+
+A browser session or authenticated account may potentially be used
+by another person with access to the device or session.
+
+Therefore, the cookie strengthens the attribution but does not by
+itself prove the physical operator.
+
+------------------------------------------------------------
+CONFIDENCE ASSESSMENT
+------------------------------------------------------------
+
+Device-to-harassment association:
+HIGH
+
+The actual harassment POST is directly observed in Frame 83601 and
+contains the relevant message.
+
+Device-to-browser/account association:
+HIGH
+
+Frame 79187 shows the same source MAC/IP and the Gmail account
+identifier.
+
+Account-to-Chemistry-109-student association:
+HIGH
+
+The case-provided investigation material associates the account with
+Johnny Coach and lists Johnny Coach on the Chemistry 109 roster.
+
+Physical attribution to Johnny Coach:
+MODERATE
+
+The combined evidence strongly associates Johnny Coach with the
+observed device/browser session, but the available network evidence
+does not independently establish that he was physically operating
+the device when the message was transmitted.
+
+Overall attribution assessment:
+STRONG ASSOCIATION, NOT CONCLUSIVE PHYSICAL ATTRIBUTION
+
+------------------------------------------------------------
+ADDITIONAL EVIDENCE THAT COULD STRENGTHEN ATTRIBUTION
+------------------------------------------------------------
+
+The following evidence could strengthen or independently confirm
+the physical attribution:
+
+- Endpoint operating-system login records
+- User account authentication records
+- Browser history and local browser artifacts
+- DHCP lease records
+- Wireless access-point association logs
+- Device ownership or inventory records
+- File-system and user-profile artifacts
+- Independent witness or access-control evidence
+- Additional network traffic linking the user to the device at the
+  exact event time
+
+------------------------------------------------------------
+FINAL CONCLUSION
+------------------------------------------------------------
+
+The network capture provides strong evidence that the harassment
+message was transmitted from client IP 192.168.15.4 using the
+observed network interface with MAC address 00:17:f2:e2:c0:ce.
+
+The same device/interface was observed in browser/session traffic
+containing the Gmail account identifier jcoachj@gmail.com. The
+case-provided investigation material associates this account with
+Johnny Coach and identifies Johnny Coach as a student in Lily
+Tuckrige's Chemistry 109 class.
+
+Taken together, these findings provide a strong evidentiary
+association between Johnny Coach and the device/browser session
+used in the harassment activity.
+
+However, because the dormitory wireless network was open and the
+available evidence does not independently establish who physically
+operated the device at the exact time of transmission, the evidence
+does not support an absolute or conclusive statement that Johnny
+Coach was the physical sender.
+
+The defensible forensic conclusion is therefore:
+
+The evidence strongly associates Johnny Coach with the device and
+browser session from which the harassment message was transmitted,
+but the available PCAP evidence alone is insufficient to establish
+conclusive physical attribution beyond reasonable alternative
+explanations.
+
+Analyst:
+Kafayat Animashawun
+
+Case:
+SBT-DF204 Case Study 1
