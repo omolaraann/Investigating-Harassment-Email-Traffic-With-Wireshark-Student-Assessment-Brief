@@ -156,7 +156,7 @@ The repository preserves both the formally organised investigation evidence and 
 │   │   └── ⚖️ Q8_Attribution_Assessment.txt
 │   │
 │   └── 📁 Wireshark-Analysis/
-│       ├── 🔎 filters.txt
+│   ├── ├── 🔎 filters.txt
 │       ├── 📦 packet-findings.txt
 │       │
 │       ├── 🍪 Cookie-Analysis/
@@ -174,6 +174,36 @@ The repository preserves both the formally organised investigation evidence and 
 │       │
 │       └── 🕒 Timeline/
 │           └── Q7_Harassment_Timestamp.txt
+│
+├── 📁 Screenshots/
+│   │
+│   ├── 📄 .gitkeep
+│   │
+│   │   ├── 📄 Acquisition of the Nitroba network traffic capture from the specified Digital Corpora source.png
+│   │   ├── 🗃️ Activity Timeline.png
+│   │   ├── 🔢 Activity Timeline2.png
+│   │   ├── 🔢 Association of the Device With an Individual.png
+│   │   ├── 📄 Association of the Device With an Individual2.png
+│   │   ├── 🗃️ Correlation of the Client System With the Harassment Message.png
+│   │   ├── 🔢 Correlation of the Client System With the Harassment Message2.png
+│   │   ├── 🔢 Correlation of the Client System With the Harassment Message3.png
+│   │   ├── 🔢 Correlation of the Client System With the Harassment Message4.png
+│   │   ├── 📄 Correlation of the Client System With the Harassment Message5.png
+│   │   ├── 🗃️ Correlation of the Client System With the Harassment Message6.png
+│   │   ├── 🔢 Correlation of the Client System With the Harassment Message7.png
+│   │   ├── 📋 Establishment of the Forensic Working Environment.png
+│   │   ├── 🗃️ Identification of the Client System Communicating With the Web Service.png
+│   │   ├── 🔢 Identification of the Device That Made the Relevant Request.png
+│   │   ├── 🔢 Identification of the Device That Made the Relevant Request2.png
+│   │   ├── 🔢 Identification of the Device That Made the Relevant Request3.png
+│   │   ├── 📄 PCAP Metadata Verification.png
+│   │   ├── 🗃️ PCAP capture file.png
+│   │   ├── 🔢 SHA-256 hash calculated for the acquired Nitroba PCAP.png
+│   │   ├── 📋 Summary of the verified forensic working evidence.png
+│   │   ├── 📄 Verification Against the Chemistry 109 Class Roster.png
+│   │   ├── 🗃️ Verification of the acquired PCAP filename, location and file size.png
+│   │   ├── 🔢 Verification of the forensic case directory.png
+│   │   └── 📋 Wireshark identification of client IP 192.168.15.4.png
 │
 └── 📁 working/
     ├── 🗃️ E03_HTTP_POST_secure_submit.pcap
